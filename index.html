@@ -26,6 +26,7 @@
             margin-bottom: 16px;
 
             overflow-y: auto;
+            scroll-behavior: smooth;
         }
 
         ul {
@@ -115,7 +116,32 @@
 
         $form.addEventListener('submit', (event) => {
             event.preventDefault()
+            const messageText = $input.value.trim()
+
+            if (messageText != '') {
+                // añadimos el mensaje en el DOM
+                $input.value = ''
+            }
+
+            addMessage(messageText, 'user')
         })   
+
+        function addMessage(text, sender) {
+            // clonar el template
+            const clonedTemplate = $template.content.cloneNode(true)
+            const $newMessage = clonedTemplate.querySelector('.message')
+
+            const $who = $newMessage.querySelector('span')
+            const $text = $newMessage.querySelector('p')
+
+            $text.textContent = text
+            $who.textContent = sender == 'bot' ? 'GPT' : 'Tu'
+            $newMessage.classList.add(sender)
+
+            $messages.appendChild($newMessage)
+
+            $container.scrollTop = $container.scrollHeight
+        }
     </script>
 </head>
 <body>

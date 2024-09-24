@@ -135,12 +135,14 @@
             const $text = $newMessage.querySelector('p')
 
             $text.textContent = text
-            $who.textContent = sender == 'bot' ? 'GPT' : 'Tu'
+            $who.textContent = sender === 'bot' ? 'GPT' : 'Tu'
             $newMessage.classList.add(sender)
 
             $messages.appendChild($newMessage)
 
             $container.scrollTop = $container.scrollHeight
+
+            return $text
         }
     </script>
 </head>
